@@ -68,7 +68,7 @@ class Network():
         for inp, lab in zip(inputs, labels):
             self.test_step(inp, lab)
 
-    def output_train(self, file_name):
+    def output_trained(self, file_name):
         output_file = open(file_name, 'w+')
         output_file.write(" ".join(map(str, self.nodes)) + "\n")
 
@@ -78,9 +78,13 @@ class Network():
 
         for col in range(self.weights[1].shape[1]):
             line = " ".join(["%.3f" % weight for weight in self.weights[1][:, col]])
-            output_file.write(line + "\n")
+            output_file.write(line)
+            if col != self.weights[1].shape[1] - 1:
+                output_file.write("\n")
 
-    def output_test(self, file_name):
+        output_file.close()
+
+    def output_test_results(self, file_name):
         individual_results, micro_averaged, macro_averaged = self.compute_overall_metrics()
         individual_confusions = [[confusion_matrix[1, 1], confusion_matrix[1, 0], 
                                   confusion_matrix[0, 1], confusion_matrix[0, 0]]
@@ -92,4 +96,6 @@ class Network():
             output_file.write(" ".join(["%.3f" % metric for metric in individual_result.tolist()]) + "\n")
 
         output_file.write(" ".join(["%.3f" % metric for metric in micro_averaged]) + "\n")
-        output_file.write(" ".join(["%.3f" % metric for metric in macro_averaged]) + "\n")
+        output_file.write(" ".join(["%.3f" % metric for metric in macro_averaged]))
+
+        output_file.close()

@@ -16,6 +16,7 @@ def parse_representation(representation_file_name):
             output_weights[:, index-hidden_nodes] = weights
         index += 1
 
+    repr_file.close()
     return [input_nodes, hidden_nodes, output_nodes], [hidden_weights, output_weights]
 
 def parse_training(training_file_name):
@@ -32,4 +33,5 @@ def parse_training(training_file_name):
         labels[index, :] = variables[input_nodes:]
         index += 1
 
+    train_file.close()
     return inputs, labels

@@ -23,11 +23,11 @@ if namespace.type == 'train':
                   labels=labels,
                   learning_rate=learning_rate,
                   epochs=epochs)
-    network.output_train(output_file_name)
+    network.output_trained(output_file_name)
 else:
     testing_file_name = input("Enter the name of the testing file: ")
     inputs, labels = input_lib.parse_training(training_file_name=testing_file_name)
     output_file_name = input("Enter the name of the output file: ")
     network.test(inputs=inputs,
                  labels=labels)
-    network.output_test(output_file_name)
+    network.output_test_results(output_file_name)
